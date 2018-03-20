@@ -1,6 +1,18 @@
 <template>
   <div>
-    <div v-if="this.$props.bundle === 'world'">
+    <div v-if="customBundleComponents">
+      <component
+        v-for="name in customBundleComponents"
+        :key="name"
+        :is="name"
+        :has_icon="customBundle.hasIcon"
+        :has_counter="customBundle.hasCounter"
+        :title_social="(customBundle[name] && customBundle[name].titleSocial) || ''"
+        :page_url="customBundle.page_url"
+      >
+      </component>
+    </div>
+    <div v-if="this.$props.bundle === 'world' && !customBundleComponents">
       <vue-goodshare-facebook has_icon has_counter title_social="Facebook"></vue-goodshare-facebook>
       <vue-goodshare-linked-in has_icon has_counter title_social="LinkedIn"></vue-goodshare-linked-in>
       <vue-goodshare-tumblr has_icon has_counter title_social="Tumblr"></vue-goodshare-tumblr>
@@ -9,7 +21,7 @@
       <vue-goodshare-twitter has_icon title_social="Twitter"></vue-goodshare-twitter>
       <vue-goodshare-google-plus has_icon title_social="Google Plus"></vue-goodshare-google-plus>
     </div>
-    <div v-if="this.$props.bundle === 'ru'">
+    <div v-if="this.$props.bundle === 'ru' && !customBundleComponents">
       <vue-goodshare-vkontakte has_icon has_counter title_social="Вконтакте"></vue-goodshare-vkontakte>
       <vue-goodshare-odnoklassniki has_icon has_counter title_social="Одноклассники"></vue-goodshare-odnoklassniki>
       <vue-goodshare-facebook has_icon has_counter title_social="Фейсбук"></vue-goodshare-facebook>
@@ -17,7 +29,7 @@
       <vue-goodshare-twitter has_icon title_social="Твиттер"></vue-goodshare-twitter>
       <vue-goodshare-live-journal has_icon title_social="Живой Журнал"></vue-goodshare-live-journal>
     </div>
-    <div v-if="this.$props.bundle === 'mobile'">
+    <div v-if="this.$props.bundle === 'mobile' && !customBundleComponents">
       <vue-goodshare-telegram has_icon title_social="Telegram"></vue-goodshare-telegram>
       <vue-goodshare-viber has_icon title_social="Viber"></vue-goodshare-viber>
       <vue-goodshare-whats-app has_icon title_social="WhatsApp"></vue-goodshare-whats-app>
@@ -52,7 +64,20 @@
       bundle: {
         type: String,
         default: 'world'
+      },
+      customBundle: {
+        type: Object,
+        default: {}
       }
+    },
+    computed: {
+      customBundleComponents() {
+        return this.customBundle.use
+          && typeof this.customBundle.use.length === 'number'
+          && this.customBundle.use.map(
+            componentName => 'VueGoodshare' + componentName[0].toUpperCase() + componentName.slice(1)
+          );
+      },
     },
     components: {
       VueGoodshareVkontakte,
