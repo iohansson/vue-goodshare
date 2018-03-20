@@ -8,7 +8,7 @@
         :has_icon="customBundle.hasIcon"
         :has_counter="customBundle.hasCounter"
         :title_social="(customBundle[name] && customBundle[name].titleSocial) || ''"
-        :page_url="customBundle.page_url"
+        :page_url="customBundle.pageUrl"
       >
       </component>
     </div>
