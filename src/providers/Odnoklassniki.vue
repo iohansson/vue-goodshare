@@ -14,7 +14,7 @@
     <span class="title-social" v-if="this.$props.title_social">{{ title_social }}</span>
     <span class="counter-odnoklassniki"
           v-model="counter_odnoklassniki"
-          v-if="this.$props.has_counter"
+          v-if="this.$props.has_counter && counter_odnoklassniki > 0"
     >{{ counter_odnoklassniki }}</span>
   </a>
 </template>
