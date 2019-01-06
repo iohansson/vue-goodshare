@@ -22,10 +22,10 @@
       <vue-goodshare-google-plus has_icon title_social="Google Plus"></vue-goodshare-google-plus>
     </div>
     <div v-if="this.$props.bundle === 'ru' && !customBundleComponents">
-      <vue-goodshare-facebook has_icon has_counter title_social="ФБ"></vue-goodshare-facebook>
-      <vue-goodshare-vkontakte has_icon has_counter title_social="Вконтакте"></vue-goodshare-vkontakte>
-      <vue-goodshare-odnoklassniki has_icon has_counter title_social="Одноклассники"></vue-goodshare-odnoklassniki>
-      <vue-goodshare-telegram has_icon title_social="Телеграм"></vue-goodshare-telegram>
+      <vue-goodshare-facebook has_icon has_counter></vue-goodshare-facebook>
+      <vue-goodshare-vkontakte has_icon has_counter></vue-goodshare-vkontakte>
+      <vue-goodshare-odnoklassniki has_icon has_counter></vue-goodshare-odnoklassniki>
+      <vue-goodshare-telegram has_icon></vue-goodshare-telegram>
     </div>
     <div v-if="this.$props.bundle === 'mobile' && !customBundleComponents">
       <vue-goodshare-telegram has_icon title_social="Telegram"></vue-goodshare-telegram>
