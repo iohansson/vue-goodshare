@@ -12,18 +12,22 @@
   >
     <i class="icon-odnoklassniki" v-if="this.$props.has_icon"></i>
     <span class="title-social" v-if="this.$props.title_social">{{ title_social }}</span>
-    <span class="counter-odnoklassniki"
-          v-model="counter_odnoklassniki"
-          v-if="this.$props.has_counter && counter_odnoklassniki > 0"
-    >{{ counter_odnoklassniki }}</span>
+    <counter class="counter-odnoklassniki"
+      v-if="this.$props.has_counter"
+      :count="counter_odnoklassniki"
+    />
   </a>
 </template>
 
 <script>
+  import Counter from '../components/Counter.vue';
   import defaultHref from '../helpers/defaultHref';
 
   export default {
     name: 'VueGoodshareOdnoklassniki',
+    components: {
+      Counter,
+    },
     props: {
       page_url: {
         type: String,

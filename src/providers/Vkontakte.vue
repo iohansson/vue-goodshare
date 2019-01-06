@@ -14,14 +14,15 @@
   >
     <i class="icon-vkontakte" v-if="this.$props.has_icon"></i>
     <span class="title-social" v-if="this.$props.title_social">{{ title_social }}</span>
-    <span class="counter-vkontakte"
-          v-model="counter_vkontakte"
-          v-if="this.$props.has_counter && counter_vkontakte > 0"
-    >{{ counter_vkontakte }}</span>
+    <counter class="counter-vkontakte"
+      v-if="this.$props.has_counter"
+      :count="counter_vkontakte"
+    />
   </a>
 </template>
 
 <script>
+  import Counter from '../components/Counter.vue';
   import defaultHref from '../helpers/defaultHref';
   // Variables
   const description = document.querySelector('meta[name="description"]')
@@ -29,6 +30,9 @@
   
   export default {
     name: 'VueGoodshareVkontakte',
+    components: {
+      Counter,
+    },
     props: {
       page_url: {
         type: String,

@@ -11,18 +11,22 @@
   >
     <i class="icon-facebook" v-if="this.$props.has_icon"></i>
     <span class="title-social" v-if="this.$props.title_social">{{ title_social }}</span>
-    <span class="counter-facebook"
-          v-model="counter_facebook"
-          v-if="this.$props.has_counter && counter_facebook > 0"
-    >{{ counter_facebook }}</span>
+    <counter class="counter-facebook"
+      v-if="this.$props.has_counter"
+      :count="counter_facebook"
+    />
   </a>
 </template>
 
 <script>
+  import Counter from '../components/Counter.vue';
   import defaultHref from '../helpers/defaultHref';
 
   export default {
     name: 'VueGoodshareFacebook',
+    components: {
+      Counter,
+    },
     props: {
       page_url: {
         type: String,
