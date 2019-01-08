@@ -30,7 +30,7 @@
     props: {
       page_url: {
         type: String,
-        default: defaultHref
+        default: defaultHref(),
       },
       button_design: {
         type: String,

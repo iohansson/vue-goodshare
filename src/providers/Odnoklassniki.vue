@@ -31,7 +31,7 @@
     props: {
       page_url: {
         type: String,
-        default: defaultHref
+        default: defaultHref(),
       },
       page_title: {
         type: String,
