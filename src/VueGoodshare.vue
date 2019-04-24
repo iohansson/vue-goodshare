@@ -9,7 +9,7 @@
         :has_counter="customBundle.hasCounter"
         :title_social="(customBundle[name] && customBundle[name].titleSocial) || ''"
         :page_url="customBundle.pageUrl"
-        :proxy-url="facebookProxyUrl"
+        :proxy-url="customBundle.facebookProxyUrl"
       >
       </component>
     </div>
