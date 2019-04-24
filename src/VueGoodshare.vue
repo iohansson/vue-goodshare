@@ -9,11 +9,12 @@
         :has_counter="customBundle.hasCounter"
         :title_social="(customBundle[name] && customBundle[name].titleSocial) || ''"
         :page_url="customBundle.pageUrl"
+        :proxy-url="facebookProxyUrl"
       >
       </component>
     </div>
     <div v-if="this.$props.bundle === 'world' && !customBundleComponents">
-      <vue-goodshare-facebook has_icon has_counter title_social="Facebook"></vue-goodshare-facebook>
+      <vue-goodshare-facebook has_icon has_counter title_social="Facebook" :proxy-url="facebookProxyUrl"></vue-goodshare-facebook>
       <vue-goodshare-linked-in has_icon has_counter title_social="LinkedIn"></vue-goodshare-linked-in>
       <vue-goodshare-tumblr has_icon has_counter title_social="Tumblr"></vue-goodshare-tumblr>
       <vue-goodshare-pinterest has_icon has_counter title_social="Pinterest"></vue-goodshare-pinterest>
@@ -22,7 +23,7 @@
       <vue-goodshare-google-plus has_icon title_social="Google Plus"></vue-goodshare-google-plus>
     </div>
     <div v-if="this.$props.bundle === 'ru' && !customBundleComponents">
-      <vue-goodshare-facebook has_icon has_counter></vue-goodshare-facebook>
+      <vue-goodshare-facebook has_icon has_counter :proxy-url="facebookProxyUrl"></vue-goodshare-facebook>
       <vue-goodshare-vkontakte has_icon has_counter></vue-goodshare-vkontakte>
       <vue-goodshare-odnoklassniki has_icon has_counter></vue-goodshare-odnoklassniki>
       <vue-goodshare-telegram has_icon></vue-goodshare-telegram>
@@ -61,12 +62,16 @@
     props: {
       bundle: {
         type: String,
-        default: 'world'
+        default: 'world',
       },
       customBundle: {
         type: Object,
-        default: {}
-      }
+        default: {},
+      },
+      facebookProxyUrl: {
+        type: String,
+        required: true,
+      },
     },
     computed: {
       customBundleComponents() {

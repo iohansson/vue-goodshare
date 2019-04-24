@@ -19,6 +19,7 @@
 </template>
 
 <script>
+  import Axios from 'axios';
   import Counter from '../components/Counter.vue';
   import defaultHref from '../helpers/defaultHref';
 
@@ -39,9 +40,13 @@
       title_social: String,
       has_icon: Boolean,
       has_square_edges: Boolean,
-      has_counter: Boolean
+      has_counter: Boolean,
+      proxyUrl: {
+        type: String,
+        required: true,
+      },
     },
-    data () {
+    data() {
       return {
         buttonSocialDesignObject: {
           'button-social__square_edges': this.$props.has_square_edges,
@@ -49,8 +54,8 @@
           'facebook__design__gradient': this.$props.button_design === 'gradient',
           'facebook__design__outline': this.$props.button_design === 'outline'
         },
-        counter_facebook: 0
-      }
+        counter_facebook: 0,
+      };
     },
     methods: {
       /**
@@ -97,33 +102,28 @@
        *
        * @return {object} a share counter
        */
-      getShareCounter: function () {
-        // Variables
-        const script = document.createElement('script')
-        const callback = 'vue_goodshare_' + this.getRandomInt(1, 2345)
-        
-        // Create `script` tag with share count URL
-        script.src = 'https://graph.facebook.com?'
-          + 'id=' + encodeURIComponent(this.$props.page_url)
-          + '&callback=' + callback
-        
-        // Add `script` tag with share count URL
-        // to end of `body` tag
-        document.body.appendChild(script)
-        
-        // Set share count to `counter_facebook` v-model
-        window[callback] = (count) => {
-          if (count.share) {
-            this.counter_facebook = (count.share.share_count >= 1000)
-              ? this.sliceThousandInt(count.share.share_count)
-              : count.share.share_count
+      async getShareCounter() {
+        const axios = Axios.create({
+          baseURL: this.proxyUrl,
+        });
+        try {
+          const response = await axios.get('', {
+            params: {
+              url: this.$props.page_url,
+            },
+          });
+          const { share_count } = response.data.engagement;
+          if (share_count) {
+            this.counter_facebook = (share_count >= 1000)
+              ? this.sliceThousandInt(share_count)
+              : share_count;
           }
-        }
+        } catch (e) {}
       }
     },
     mounted () {
       // Show share counter when page loaded
-      if (this.$props.has_counter) this.getShareCounter()
+      if (this.$props.has_counter) this.getShareCounter();
     }
   }
 </script>
