@@ -70,7 +70,7 @@
       },
       facebookProxyUrl: {
         type: String,
-        required: true,
+        default: null,
       },
     },
     computed: {
